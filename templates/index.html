@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scan Result</title>
+    <style>
+        body {
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .safe {
+            color: limegreen;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .phishing {
+            color: red;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        a {
+            color: #00f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scan Result for:</h1>
+    <p><strong>{{ url }}</strong></p>
+
+    <p class="{{ 'phishing' if verdict == 'Phishing/Malicious' else 'safe' }}">
+        {{ verdict }}
+    </p>
+
+    <p>Malicious: {{ stats.malicious }}</p>
+    <p>Harmless: {{ stats.harmless }}</p>
+    <p>Suspicious: {{ stats.suspicious }}</p>
+
+    <p><a href="/">← Scan another URL</a></p>
+</body>
+</html>

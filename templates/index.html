@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Scan Result</title>
+    <title>Phishing URL Scanner</title>
     <style>
         body {
-            background-color: #111;
+            background-color: #121212;
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
             padding-top: 50px;
         }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            padding: 10px;
+        }
         .safe {
-            color: limegreen;
-            font-size: 24px;
-            font-weight: bold;
+            background-color: #2ecc71;
         }
         .phishing {
-            color: red;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        a {
-            color: #00f;
+            background-color: #e74c3c;
         }
     </style>
 </head>
 <body>
-    <h1>Scan Result for:</h1>
-    <p><strong>{{ url }}</strong></p>
+    <h1>Phishing URL Scanner</h1>
+    <form method="POST" action="/scan">
+        <input type="text" name="url" placeholder="Enter URL to scan" required>
+        <button type="submit">Scan URL</button>
+    </form>
 
-    <p class="{{ 'phishing' if verdict == 'Phishing/Malicious' else 'safe' }}">
-        {{ verdict }}
-    </p>
-
-    <p>Malicious: {{ stats.malicious }}</p>
-    <p>Harmless: {{ stats.harmless }}</p>
-    <p>Suspicious: {{ stats.suspicious }}</p>
-
-    <p><a href="/">← Scan another URL</a></p>
+    {% if result %}
+        <div class="result {% if result == 'Phishing' %}phishing{% else %}safe{% endif %}">
+            {{ result }}
+        </div>
+    {% endif %}
 </body>
 </html>
